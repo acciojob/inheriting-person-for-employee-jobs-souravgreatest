@@ -8,11 +8,15 @@ Person.prototype.greet = function() {
 };
 
 function Employee(name, age, jobTitle) {
-    Person.call(this, name, age);
+    Person.call(this, name, age);  // Inherit properties
     this.jobTitle = jobTitle;
-    this.__proto__ = Person.prototype; // Inheriting methods from Person
 }
 
+// Proper inheritance
+Employee.prototype = Object.create(Person.prototype);
+Employee.prototype.constructor = Employee;
+
+// Ensure jobGreet is attached to Employee's prototype
 Employee.prototype.jobGreet = function() {
     console.log(`Hello, my name is ${this.name}, I am ${this.age} years old, and my job title is ${this.jobTitle}.`);
 };
